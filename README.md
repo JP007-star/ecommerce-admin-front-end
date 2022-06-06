@@ -1,3 +1,8 @@
+# Commands
+npx create-react-app <app-name>
+npm i react-bootstrap bootstrap
+npm i react-router-dom
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
