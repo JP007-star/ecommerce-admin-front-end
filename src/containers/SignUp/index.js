@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout } from '../../components/Layout'
 import { Container, Form, Button, Row, Col } from 'react-bootstrap'
 import { Input } from '../../components/UI/Input'
+import { Navigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { signUp } from '../../actions'
 
 /**
 * @author jayaprasad
@@ -9,13 +12,44 @@ import { Input } from '../../components/UI/Input'
 **/
 
 export const SignUp = (props) => {
+    const [firstName,setFirstName]=useState('')
+    const [lastName,setLastName]=useState('')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const auth=useSelector(state => state.auth)
+    const user=useSelector(state=> state.user)
+
+    const dispatch=useDispatch();
+
+    
+    
+    
+    const userSignUp=(e)=>{ 
+        e.preventDefault()
+        const user={
+            firstName,lastName,email,password
+        }
+        dispatch(signUp(user))
+    }
+ 
+    if(auth.authenticate){
+        return <Navigate to='/' replace />
+    }
+
+    if(user.loading){
+       
+        return <p>loading....!</p>
+    }
+
     return (
         <>
             <Layout>
                 <Container>
+                {user.message}
                     <Row style={{ marginTop: '50px' }}>
                         <Col md={{ span: 6, offset: 3 }}>
-                            <Form>
+                            <Form onSubmit={userSignUp}>
 
                                 <Row>
                                     <Col md={6}>
@@ -23,8 +57,8 @@ export const SignUp = (props) => {
                                             label="First Name"
                                             placeholder="First Name"
                                             type="text"
-                                            value=""
-                                            onChange={() => { }}
+                                            value={firstName}
+                                            onChange={(e) =>  setFirstName(e.target.value) }
 
                                         />
 
@@ -34,8 +68,8 @@ export const SignUp = (props) => {
                                             label="Last Name"
                                             placeholder="Last Name"
                                             type="text"
-                                            value=""
-                                            onChange={() => { }}
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)}
 
                                         />
 
@@ -45,8 +79,8 @@ export const SignUp = (props) => {
                                     label="Email Address"
                                     placeholder="Email Address"
                                     type="email"
-                                    value=""
-                                    onChange={() => { }}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value) }
 
                                 />
 
@@ -54,8 +88,8 @@ export const SignUp = (props) => {
                                     label="Password"
                                     placeholder="Password"
                                     type="password"
-                                    value=""
-                                    onChange={() => { }}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value) }
 
                                 />
 

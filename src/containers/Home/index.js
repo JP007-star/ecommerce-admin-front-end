@@ -1,16 +1,24 @@
 import React from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
 import { Layout } from '../../components/Layout'
-
+import './style.css'
 /**
 * @author
 * @function Home
 **/
 
 export const Home = (props) => {
-  return(
-     <>
+  return (
+    <>
       <Layout>
-          <div className='jumbotron text-center'>
+        <Container fluid>
+          <Row>
+            <Col md={2} className="sidebar">sidebar</Col>
+            <Col md={10} style={{marginLeft:'auto'}}> containers</Col>
+          </Row>
+        </Container>
+
+        {/* <div className='jumbotron text-center'>
               <h1>Welcome Admin!</h1>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               Lorem Ipsum has been the industry's standard dummy text ever since the
@@ -20,9 +28,9 @@ export const Home = (props) => {
               unchanged. It was popularised in the 1960s with the release of Letraset
               sheets containing Lorem Ipsum passages, and more recently with desktop
               publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-           </div>
+           </div> */}
       </Layout>
-     </>
-   )
+    </>
+  )
 
- }
+}
