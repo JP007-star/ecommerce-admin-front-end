@@ -1,22 +1,17 @@
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+
 import { Layout } from '../../components/Layout'
 import './style.css'
 /**
 * @author
-* @function Home
+* @function Home 
 **/
 
 export const Home = (props) => {
   return (
     <>
-      <Layout>
-        <Container fluid>
-          <Row>
-            <Col md={2} className="sidebar">sidebar</Col>
-            <Col md={10} style={{marginLeft:'auto'}}> containers</Col>
-          </Row>
-        </Container>
+      <Layout sidebar>
+       
 
         {/* <div className='jumbotron text-center'>
               <h1>Welcome Admin!</h1>
