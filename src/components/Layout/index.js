@@ -17,6 +17,7 @@ export const Layout = (props) => {
         <Col md={2} className="sidebar">
            
             <NavLink  href="/">Home</NavLink>
+            <NavLink  href="/category">Category</NavLink>
             <NavLink  href='/products'>Products</NavLink>
             <NavLink href='/orders'>Orders</NavLink>
            
