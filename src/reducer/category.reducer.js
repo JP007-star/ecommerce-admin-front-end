@@ -14,11 +14,22 @@ export default (state = initState,action)=>{
                 categories:action.payload.categories
             }
             break
-        // case categoryConstants.GET_ALL_CATEGORIES_FAILURE: 
-        //     state={
-
-        //     }
-        //     break
+            case categoryConstants.ADD_CATEGORIES_REQUEST:
+                state={
+                    ...state,
+                    loading:true
+                }
+            case categoryConstants.ADD_CATEGORIES_SUCCESS:
+                state={
+                    ...state,
+                    loading:false
+                }
+                break
+            case categoryConstants.ADD_CATEGORIES_FAILURE: 
+                state={
+                 ...initState
+                }
+                break
     }
     return state
 }
