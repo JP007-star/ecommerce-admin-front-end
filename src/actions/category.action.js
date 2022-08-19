@@ -31,13 +31,13 @@ export const addCategory = (form) => {
         if(res.status===201){
             dispatch({
                 type: categoryConstants.ADD_CATEGORIES_SUCCESS,
-                payload: res.data.category
+                payload:{ category: res.data.category }
             })
         }
         else{
             dispatch({
                 type: categoryConstants.ADD_CATEGORIES_FAILURE,
-                payload: res.data.category
+                payload: res.data.error
             })
         }
         console.log(res);
