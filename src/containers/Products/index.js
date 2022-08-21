@@ -102,8 +102,6 @@ export const Products = (props) => {
                       value={categoryId}
                       onChange={(e)=>setCategoryId(e.target.value)} >
                         <option>select option</option>
-                        <option value='62a6325c9a62541cf29238d7'>Samsung</option>
-
                         {
                           
                             createCategoryList(category.categories).map(option =>

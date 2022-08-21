@@ -33,9 +33,7 @@ export const Category = (props) => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getAllCategory())
-    }, []);
+   
 
     const handleCategoryImage=(e)=>{
          setCategoryImage(e.target.files[0])
