@@ -1,9 +1,10 @@
-import { Modal, Button, Container,Row ,Col} from 'react-bootstrap'
+import { Table, Container, Row, Col } from 'react-bootstrap'
 import React, { useState } from 'react'
 import { Layout } from '../../components/Layout'
 import { Input } from '../../components/UI/Input'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct } from '../../actions/product.action'
+import { ModalUI } from '../../components/ModalUI'
 
 /**
 * @author
@@ -26,14 +27,14 @@ export const Products = (props) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => {
-        const form=new FormData();
+        const form = new FormData();
         form.append('name', name)
         form.append('quantity', quantity)
         form.append('description', description)
         form.append('category', categoryId)
         form.append('price', price)
-        
-        for (let pic of productPicture){
+
+        for (let pic of productPicture) {
             form.append('productPicture', pic)
         }
 
@@ -43,10 +44,10 @@ export const Products = (props) => {
     const handleShow = () => setShow(true);
 
     // function to create a categoryList
-    const createCategoryList=(categories,options=[]) => {
-        for(let category of categories) {
-            options.push({value: category._id,name:category.name});
-            if(category.children.length > 0) {
+    const createCategoryList = (categories, options = []) => {
+        for (let category of categories) {
+            options.push({ value: category._id, name: category.name });
+            if (category.children.length > 0) {
                 createCategoryList(category.children, options);
             }
         }
@@ -54,8 +55,8 @@ export const Products = (props) => {
     }
 
     //function to store picture
-    const handleProductPicture=(e) => {
-        setProductPicture([...productPicture,e.target.files[0]])
+    const handleProductPicture = (e) => {
+        setProductPicture([...productPicture, e.target.files[0]])
     }
 
     console.log(productPicture);
@@ -71,63 +72,99 @@ export const Products = (props) => {
                         </div>
                     </Col>
                 </Row>
+                <Row>
+                    <Col>
+                        <Table responsive="sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                    <th>Table heading</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                    <td>Table cell</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
             </Container>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add New Product</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+            <ModalUI
+                show={show}
+                handleClose={handleClose}
+                modalTitle={'Add a Product'}
+            >
+                <Input
+                    value={name}
+                    placeholder={`Enter a product name`}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <Input
+                    value={quantity}
+                    placeholder={`Enter a product quantity`}
+                    onChange={(e) => setQuantity(e.target.value)}
+                />
+                <Input
+                    value={price}
+                    placeholder={`Enter a product price`}
+                    onChange={(e) => setPrice(e.target.value)}
+                />
+                <Input
+                    value={description}
+                    placeholder={`Enter a product description`}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+                <select className='form-control'
+                    value={categoryId}
+                    onChange={(e) => setCategoryId(e.target.value)} >
+                    <option>select option</option>
+                    {
 
-                    <Input
-                        value={name}
-                        placeholder={`Enter a product name`}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <Input
-                        value={quantity}
-                        placeholder={`Enter a product quantity`}
-                        onChange={(e) => setQuantity(e.target.value)}
-                    />
-                    <Input
-                        value={price}
-                        placeholder={`Enter a product price`}
-                        onChange={(e) => setPrice(e.target.value)}
-                    />
-                    <Input
-                        value={description}
-                        placeholder={`Enter a product description`}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                    <select className='form-control'
-                      value={categoryId}
-                      onChange={(e)=>setCategoryId(e.target.value)} >
-                        <option>select option</option>
-                        {
-                          
-                            createCategoryList(category.categories).map(option =>
-                                  <option key={option.name} value={option.value}>{option.name}</option>
-                                )
-                        }
-                     </select>
-                     {  console.log(category)}
-                     {
-                        productPicture.length > 0 ?
-                        productPicture.map((pic,index)=><div key={index}>{JSON.stringify(pic)}</div>) :
+                        createCategoryList(category.categories).map(option =>
+                            <option key={option.name} value={option.value}>{option.name}</option>
+                        )
+                    }
+                </select>
+                {console.log(category)}
+                {
+                    productPicture.length > 0 ?
+                        productPicture.map((pic, index) => <div key={index}>{JSON.stringify(pic)}</div>) :
                         null
-                     }
-                     <input type='file' name='productPicture' className='form-control image' onChange={handleProductPicture} />
+                }
+                <input type='file' name='productPicture' className='form-control image' onChange={handleProductPicture} />
 
 
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            </ModalUI>
         </Layout>
     )
 
