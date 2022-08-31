@@ -21,6 +21,7 @@ export const Products = (props) => {
     const [categoryId, setCategoryId] = useState('')
     const [productPicture, setProductPicture] = useState([])
     const category = useSelector(state => state.category)
+    const product=useSelector(state=> state.product)
     const dispatch = useDispatch()
 
     // modal state variables
@@ -61,6 +62,40 @@ export const Products = (props) => {
 
     console.log(productPicture);
 
+    const renderProducts = () => {
+        return (<Table responsive="sm">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                {product.products.length > 0 ? 
+
+                 product.products.map(product =>
+                    <tr key={product._id}>
+                    <td>2</td>
+                    <td><img src={'#'} /></td>
+                    <td>{product.name}</td>
+                    <td>{product.price}</td>
+                    <td>{product.quantity}</td>
+                    <td>{product.description}</td>
+                    <td>{product.catgeory}</td>
+                   
+                </tr>) 
+                : null
+                }
+                
+            </tbody>
+        </Table>)
+    }
+
     return (
         <Layout sidebar>
             <Container>
@@ -74,48 +109,7 @@ export const Products = (props) => {
                 </Row>
                 <Row>
                     <Col>
-                        <Table responsive="sm">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                    <th>Table heading</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                            </tbody>
-                        </Table>
+                       {renderProducts()}
                     </Col>
                 </Row>
             </Container>

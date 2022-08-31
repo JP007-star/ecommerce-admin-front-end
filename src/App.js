@@ -7,9 +7,10 @@ import { Home } from './containers/Home';
 import { Products } from './containers/Products';
 import { Orders } from './containers/Orders';
 import PrivateRoute from './components/HOC/PrivateRoute';
-import { isUserLoggedIn,getAllCategory} from './actions';
+import { isUserLoggedIn,getAllCategory,getInitialData} from './actions';
 import { useDispatch ,useSelector } from 'react-redux';
 import { Category } from './containers/Category';
+
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
   useEffect(() => {
       if(!auth.authenticate){
           dispatch(isUserLoggedIn());
-          dispatch(getAllCategory())
+          dispatch(getInitialData())
       }
   },[])
 
