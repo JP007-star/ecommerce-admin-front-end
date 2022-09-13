@@ -47,8 +47,8 @@ export const SignUp = (props) => {
             <Layout>
                 <Container>
                 {user.message}
-                    <Row style={{ marginTop: '50px' }}>
-                        <Col md={{ span: 6, offset: 3 }}>
+                    <Row style={{ marginTop: '100px' }}>
+                        <Col className='card p-5' md={{ span: 6, offset: 3 }}>
                             <Form onSubmit={userSignUp}>
 
                                 <Row>

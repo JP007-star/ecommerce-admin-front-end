@@ -35,9 +35,9 @@ export const SignIn = (props) => {
         <>
             <Layout>
                 <Container>
-                    <Row style={{ marginTop: '50px' }}>
-                        <Col md={{ span: 6, offset: 3 }}>
-
+                    <Row  style={{ marginTop: '100px' }}>
+                        <Col className='card p-5' md={{ span: 6, offset: 3 }}>
+     
                             <Form onSubmit={userLogin}>
                                 <Input
                                     label="Email Address"

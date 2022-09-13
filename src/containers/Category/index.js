@@ -4,7 +4,7 @@ import { Col, Container, Row,  Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCategory, getAllCategory } from '../../actions'
 import { Layout } from '../../components/Layout'
-import { ModalUI } from '../../components/ModalUI'
+import { ModalUI } from '../../components/UI/ModalUI'
 import { Input } from '../../components/UI/Input'
 
 
