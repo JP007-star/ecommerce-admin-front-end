@@ -26,8 +26,8 @@
   }
 
   .sidebar ul li a.active{
-     background-color:#333;
-     color: #ffffff;
+     background-color:rgb(251, 255, 8);
+     color: #000000;
   }
 
   .image{

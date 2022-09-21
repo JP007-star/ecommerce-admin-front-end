@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addProduct } from '../../actions'
 import { ModalUI } from '../../components/UI/ModalUI'
 import './style.css'
+import { generatePublicURL } from '../../urlConfig'
 
 /**
 * @author
@@ -89,19 +90,14 @@ export const Products = (props) => {
                             <tr onClick={() => showProductDetailModal(product)} key={product._id}>
                                 <td></td>
                                 <td>
-                                    
-                                    {product.productPicture.map(picture =>
                                     <div>
-                                        <img style={{ height:'30px'}}src={`http://localhost:9000/public/${picture.image}`} />
-                                    </div>
-                                   )} 
+                                        <img style={{ height: '30px' }} src={generatePublicURL(product.productPicture[0].image)} />
+                                    </div>  
                                 </td>
                                 <td>{product.name}</td>
                                 <td>{product.price}</td>
                                 <td>{product.quantity}</td>
-
-                                <td>{product.catgeory}</td>
-
+                                <td>{product.category.name}</td>
                             </tr>)
                         : null
                     }
@@ -193,20 +189,25 @@ export const Products = (props) => {
                     </Col>
                     <Col md={6}>
                         <label className='key'>Category:</label>
-                        <p className='value'>---</p>
+                        <p className='value'>{productDetails.category.name}</p>
                     </Col>
                     <Col md={12}>
                         <label className='key'>Description:</label>
                         <p className='value'>{productDetails.description}</p>
                     </Col>
+
                     <Col md={12}>
-                        {productDetails.productPicture.map(picture =>
-                            <div>
-                                <img src={`http://localhost:9000/public/${picture.image}`} />
-                            </div>
-                        )
-                        }
+                        <div className='key'>Product Picture</div>
+                        <Row>
+                            {productDetails.productPicture.map(picture =>
+                                <div className='productImage'>
+                                    <img src={generatePublicURL(picture.image)} />
+                                </div>
+                            )
+                            }
+                        </Row>
                     </Col>
+
                 </Row>
 
             </ModalUI>

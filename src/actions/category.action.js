@@ -9,7 +9,6 @@ export const getAllCategory=() =>{
         console.log(res);
         if(res.status==200){
             const categoryList=res.data.categories;
-
             dispatch({
                 type: categoryConstants.GET_ALL_CATEGORIES_SUCCESS,
                 payload: {categories:categoryList},
@@ -41,5 +40,32 @@ export const addCategory = (form) => {
             })
         }
         console.log(res);
+    }
+}
+
+export const updateCategory = (form) => {
+    return async dispatch=>{
+       
+        const res=await axios.post(`/category/update`, form)
+        if(res.status===201){
+            console.log(res);
+        }
+        else{
+            console.log(res);
+        }
+       
+    }
+}
+export const deleteCategory = (ids) => {
+    return async dispatch=>{
+       
+        const res=await axios.post(`/category/delete`, {
+            payload:{
+                ids
+            }
+        })
+      if(res.status(201)) return true;
+      else return false;
+       
     }
 }

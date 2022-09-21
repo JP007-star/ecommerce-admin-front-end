@@ -7,46 +7,43 @@ const initState = {
 }
 
 const buildNewCategories = (parentId, categories, category) => {
-
-    let myCategories = []
-
-    if(parentId== undefined){
-       return [
-          ...categories,
-          {
-            _id:category.id,
-            name:category.name,
-            slug:category.slug,
-            children:[]
-          }
-       ]
+    let myCategories = [];
+    if(parentId == undefined){
+        return [
+            ...categories,
+            {
+                _id: category._id,
+                name: category.name,
+                slug: category.slug,
+                children: []
+            }
+        ];
     }
-    for (let cat of categories) {
-        if (cat._id == parentId) {
+    
+    for(let cat of categories){
+
+        if(cat._id == parentId){
+            const newCategory = {
+                _id: category._id,
+                name: category.name,
+                slug: category.slug,
+                children: []
+            };
             myCategories.push({
                 ...cat,
-                children: cat.children > 0 ? buildNewCategories(
-                    parentId,
-                    [...cat.children,
-                    {
-                        _id: category._id,
-                        name: category.name,
-                        slug: category.slug,
-                        parentId: category.parentId,
-                        children: category.children
-                    }
-                    ],
-                    category) : []
+                children: cat.children.length > 0 ? [...cat.children, newCategory] : [newCategory]
             })
-        }
-        else {
+        }else{
             myCategories.push({
                 ...cat,
-                children: cat.children  ? buildNewCategories(parentId, cat.children, category) : []
-            })
+                children: cat.children ? buildNewCategories(parentId, cat.children, category) : []
+            });
         }
 
+        
     }
+
+
     return myCategories;
 }
 
