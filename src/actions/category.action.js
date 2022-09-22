@@ -26,7 +26,8 @@ export const getAllCategory=() =>{
 export const addCategory = (form) => {
     return async dispatch=>{
         dispatch({type: categoryConstants.ADD_CATEGORIES_REQUEST})
-        const res=await axios.post(`/category/create`, form)
+        try{
+            const res=await axios.post(`/category/create`, form)
         if(res.status===201){
             dispatch({
                 type: categoryConstants.ADD_CATEGORIES_SUCCESS,
@@ -39,7 +40,11 @@ export const addCategory = (form) => {
                 payload: res.data.error
             })
         }
-        console.log(res);
+        }
+        catch(e){
+            console.log(e.response);
+        }
+       
     }
 }
 
@@ -64,7 +69,7 @@ export const deleteCategory = (ids) => {
                 ids
             }
         })
-      if(res.status(201)) return true;
+      if(res.status===201) return true;
       else return false;
        
     }
