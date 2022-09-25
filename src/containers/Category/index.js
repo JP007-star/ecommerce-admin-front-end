@@ -46,7 +46,7 @@ export const Category = (props) => {
 
 
     const handleClose = () => {
-        if(categoryName==''){
+        if (categoryName == '') {
             alert('category Name is required')
         }
         const form = new FormData()
@@ -74,9 +74,9 @@ export const Category = (props) => {
     const updatedCategoryTigger = () => {
         updateCheckedAndExpanded()
         setUpdatedCategoriesModal(true);
-       
+
     }
-    const updateCheckedAndExpanded = () =>{
+    const updateCheckedAndExpanded = () => {
         const categories = createCategoryList(category.categories)
         const checkedArray = []
         const expandedArray = []
@@ -93,7 +93,7 @@ export const Category = (props) => {
         console.log({ checked, expanded, categories, checkedArray, expandedArray });
     }
 
-   
+
 
     const handleCategoryInput = (key, value, index, type) => {
         if (type == 'checked') {
@@ -135,17 +135,22 @@ export const Category = (props) => {
             form.append('type', item.type)
         })
         dispatch(updateCategory(form))
-            // .then(result => {
-            //     dispatch(getAllCategory())
-            // });
+        // .then(result => {
+        //     dispatch(getAllCategory())
+        // });
         setUpdatedCategoriesModal(false)
     }
 
-    
+
 
     const createCategoryList = (categories, options = []) => {
         for (let category of categories) {
-            options.push({ value: category._id, name: category.name, parentId: category.parentId });
+            options.push({ 
+                value: category._id, 
+                name: category.name, 
+                parentId: category.parentId,
+                type:category.type
+             });
             if (category.children.length > 0) {
                 createCategoryList(category.children, options);
             }
@@ -156,25 +161,26 @@ export const Category = (props) => {
     const deleteCategoryTigger = () => {
         updateCheckedAndExpanded()
         setDeletedCategoriesModal(true)
-        
+
     }
-    const deleteCategories =() =>{
-        const checkedIdArray=checkedArray.map((item,index)=>({_id:item.value}))
-        const expandedIdArray=expandedArray.map((item,index)=>({_id:item.value}))
-        const idsArray=expandedIdArray.concat(checkedIdArray);
-        if(checkedArray.length > 0){
-        dispatch(deleteCategory(checkedIdArray))
-        .then(result => {
-            if(result){
-            dispatch(getAllCategory())
-            setDeletedCategoriesModal(false)
-            }
-        });
-    }
+    const deleteCategories = () => {
+        const checkedIdArray = checkedArray.map((item, index) => ({ _id: item.value }))
+        const expandedIdArray = expandedArray.map((item, index) => ({ _id: item.value }))
+        const idsArray = expandedIdArray.concat(checkedIdArray);
+        if (checkedArray.length > 0) {
+            dispatch(deleteCategory(checkedIdArray))
+                .then(result => {
+                    if (result) {
+                        dispatch(getAllCategory())
+                        setDeletedCategoriesModal(false)
+                    }
+                });
+        }
+        setDeletedCategoriesModal(false)
     }
 
     const renderDeleteModal = () => {
-        console.log('delete',checkedArray);
+        console.log('delete', checkedArray);
         return (
             <ModalUI
                 modalTitle={'Confirm Deletion'}
@@ -195,10 +201,10 @@ export const Category = (props) => {
                     }
                 ]}
             >
-             <h6>Expanded</h6>
-             {expandedArray.map((item,index) => <span key={index}>{item.name}</span>)}
-              <h6>Checked</h6>
-              {checkedArray.map((item,index) => <span key={index}>{item.name}</span>)}
+                <h6>Expanded</h6>
+                {expandedArray.map((item, index) => <span key={index}>{item.name}</span>)}
+                <h6>Checked</h6>
+                {checkedArray.map((item, index) => <span key={index}>{item.name}</span>)}
             </ModalUI>
         )
     }
@@ -214,11 +220,11 @@ export const Category = (props) => {
                             <button className="btn btn-danger m-3" onClick={deleteCategoryTigger} ><i className='fa fa-trash'></i></button>
                         </div> */}
                         <div className="actionBtnContainer">
-                                <span>Actions: </span>
-                                <button onClick={handleShow}><IoIosAdd /> <span>Add</span></button>
-                                <button onClick={updatedCategoryTigger}><IoIosCloudUpload /> <span>Edit</span></button>
-                                <button onClick={deleteCategoryTigger}><IoIosTrash /> <span>Delete</span></button>
-                            </div>
+                            <span>Actions: </span>
+                            <button onClick={handleShow}><IoIosAdd /> <span>Add</span></button>
+                            <button onClick={updatedCategoryTigger}><IoIosCloudUpload /> <span>Edit</span></button>
+                            <button onClick={deleteCategoryTigger}><IoIosTrash /> <span>Delete</span></button>
+                        </div>
                     </Col>
                 </Row>
                 <Row>
@@ -250,7 +256,7 @@ export const Category = (props) => {
                 </Row>
             </Container>
             {/* {'Add Category Modal'} */}
-           <AddModal
+            <AddModal
                 show={show}
                 handleClose={handleClose}
                 modalTitle="Add Category "
@@ -260,17 +266,17 @@ export const Category = (props) => {
                 setParentCategoryId={setParentCategoryId}
                 createCategoryList={createCategoryList(category.categories)}
                 handleCategoryImage={handleCategoryImage}
-           />
+            />
             {/* {'Edit Category Modal'} */}
             <UpdateModal
-                  show={updatedCategoriesModal}
-                  handleClose={updateCategoryForm}
-                  modalTitle={'Edit Categories'}
-                  size='lg'
-                  expandedArray={expandedArray}
-                  checkedArray={checkedArray}
-                  handleCategoryInput={handleCategoryInput}
-                  createCategoryList={createCategoryList(category.categories)}
+                show={updatedCategoriesModal}
+                handleClose={updateCategoryForm}
+                modalTitle={'Edit Categories'}
+                size='lg'
+                expandedArray={expandedArray}
+                checkedArray={checkedArray}
+                handleCategoryInput={handleCategoryInput}
+                createCategoryList={createCategoryList(category.categories)}
 
             />
             {/* {renderUpdateModal()} */}

@@ -21,6 +21,7 @@ export const Layout = (props) => {
         <Col md={2} className="sidebar">
            <ul>
             <li><NavLink  href="/"  className={(active[3]=='') ? 'active' : ''} >Home</NavLink></li>
+            <li><NavLink  href="/page"  className={(active[3]=='page') ? 'active' : ''} >Page</NavLink></li>
             <li><NavLink  href="/category"  className={(active[3]=='category') ? 'active' : ''}>Category</NavLink></li>
             <li><NavLink  href='/products' className={(active[3]=='products') ? 'active' : ''}>Products</NavLink></li>
             <li><NavLink href='/orders' className={(active[3]=='orders') ? 'active' : ''}>Orders</NavLink></li>

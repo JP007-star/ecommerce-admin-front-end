@@ -8,39 +8,41 @@ const initState = {
 
 const buildNewCategories = (parentId, categories, category) => {
     let myCategories = [];
-    if(parentId == undefined){
+    if (parentId == undefined) {
         return [
             ...categories,
             {
                 _id: category._id,
                 name: category.name,
                 slug: category.slug,
+                type: category.type,
                 children: []
             }
         ];
     }
-    
-    for(let cat of categories){
 
-        if(cat._id == parentId){
+    for (let cat of categories) {
+
+        if (cat._id == parentId) {
             const newCategory = {
                 _id: category._id,
                 name: category.name,
                 slug: category.slug,
+                type: category.type,
                 children: []
             };
             myCategories.push({
                 ...cat,
                 children: cat.children.length > 0 ? [...cat.children, newCategory] : [newCategory]
             })
-        }else{
+        } else {
             myCategories.push({
                 ...cat,
                 children: cat.children ? buildNewCategories(parentId, cat.children, category) : []
             });
         }
 
-        
+
     }
 
 
@@ -62,8 +64,8 @@ export default (state = initState, action) => {
             }
             break;
         case categoryConstants.ADD_CATEGORIES_SUCCESS:
-            const category=action.payload.category
-            const updatedCategories = buildNewCategories(category.parentId,state.categories,category)
+            const category = action.payload.category
+            const updatedCategories = buildNewCategories(category.parentId, state.categories, category)
             console.log(updatedCategories);
             state = {
                 ...state,
@@ -78,7 +80,7 @@ export default (state = initState, action) => {
             break;
         case categoryConstants.UPDATE_CATEGORIES_REQUEST:
             state = {
-               ...state,
+                ...state,
                 loading: true
             }
             break;
@@ -86,13 +88,31 @@ export default (state = initState, action) => {
             state = {
                 ...state,
                 loading: false
-            } 
+            }
             break;
         case categoryConstants.UPDATE_CATEGORIES_FAILURE:
             state = {
                 ...state,
-                error:action.payload.error
-            } 
+                error: action.payload.error
+            }
+            break;
+        case categoryConstants.DELETE_CATEGORIES_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case categoryConstants.DELETE_CATEGORIES_SUCCESS:
+            state = {
+                ...state,
+                loading: false
+            }
+            break;
+        case categoryConstants.DELETE_CATEGORIES_FAILURE:
+            state = {
+                ...state,
+                error: action.payload.error
+            }
             break;
     }
     return state

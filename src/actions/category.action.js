@@ -69,14 +69,24 @@ export const updateCategory = (form) => {
 }
 export const deleteCategory = (ids) => {
     return async dispatch=>{
-       
+       dispatch({type: categoryConstants.DELETE_CATEGORIES_REQUEST})
         const res=await axios.post(`/category/delete`, {
             payload:{
                 ids
             }
         })
-      if(res.status===201) return true;
-      else return false;
+      if(res.status===201) {
+        dispatch({type:categoryConstants.DELETE_CATEGORIES_SUCCESS})
+        dispatch(getAllCategory())
+        return true;
+      }
+      else {
+        dispatch({
+            type:categoryConstants.DELETE_CATEGORIES_FAILURE,
+            payload:{error: res.data.error}
+        })
+        return false;
+      };
        
     }
 }
