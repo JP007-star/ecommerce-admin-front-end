@@ -4,7 +4,7 @@ import { Route,Routes} from 'react-router-dom';
 import { SignIn } from './containers/SignIn';
 import { SignUp } from './containers/SignUp';
 import { Home } from './containers/Home';
-import { Page } from './containers/Page';
+import { NewPage } from './containers/NewPage';
 import { Products } from './containers/Products';
 import { Orders } from './containers/Orders';
 import PrivateRoute from './components/HOC/PrivateRoute';
@@ -18,13 +18,15 @@ function App() {
   const dispatch = useDispatch()
   const auth=useSelector(state =>state.auth)
 
-
+//component didn't mount && component didn't update
   useEffect(() => {
       if(!auth.authenticate){
           dispatch(isUserLoggedIn());
+      }
+      if(auth.authenticate){
           dispatch(getInitialData())
       }
-  },[])
+  },[auth.authenticate])
 
   return (
     <>
@@ -32,7 +34,7 @@ function App() {
       
          <Routes>
            <Route path="/"      element={<PrivateRoute><Home/></PrivateRoute>}/>
-           <Route path="/page"      element={<PrivateRoute><Page/></PrivateRoute>}/>
+           <Route path="/page"      element={<PrivateRoute><NewPage/></PrivateRoute>}/>
            <Route path="/products" element={<PrivateRoute><Products/></PrivateRoute>}/>
            <Route path="/orders"   element={<PrivateRoute><Orders/></PrivateRoute>}/>
            <Route path="/category"   element={<PrivateRoute><Category/></PrivateRoute>}/>

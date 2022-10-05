@@ -44,7 +44,7 @@ export const AddModal = (props) => {
         </Row>
         <Row>
             <Col>
-                <input type='file' name='categoryImage' onChange={handleCategoryImage} />
+                <Input type='file' name='categoryImage' onChange={handleCategoryImage} />
             </Col>
         </Row>
 
