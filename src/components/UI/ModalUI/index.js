@@ -23,7 +23,7 @@ export const ModalUI = (props) => {
                             {button.label}
                         </Button>
                     )) :
-                        (<Button variant="primary" onClick={props.handleClose}>
+                        (<Button variant="primary" onClick={props.onSubmit}>
                             Save 
                         </Button>)
                 }

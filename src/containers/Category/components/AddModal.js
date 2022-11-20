@@ -13,11 +13,13 @@ export const AddModal = (props) => {
         parentCategoryId,
         setParentCategoryId,
         createCategoryList,
-        handleCategoryImage
+        handleCategoryImage,
+        onSubmit
     } = props
     return (<ModalUI
         show={show}
         handleClose={handleClose}
+        onSubmit={onSubmit}
         modalTitle={modalTitle}
     >
         <Row>

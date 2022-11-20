@@ -42,6 +42,13 @@ export const Category = (props) => {
         dispatch(getAllCategory())
     }, [])
 
+    useEffect(() => {
+        if(!category.loading){
+            setShow(false)
+        }
+
+    },[category.loading])
+
     const [show, setShow] = useState(false)
 
 
@@ -258,7 +265,8 @@ export const Category = (props) => {
             {/* {'Add Category Modal'} */}
             <AddModal
                 show={show}
-                handleClose={handleClose}
+                handleClose={()=> setShow(false)}
+                onSubmit={handleClose}
                 modalTitle="Add Category "
                 categoryName={categoryName}
                 setCategoryName={setCategoryName}
@@ -270,7 +278,8 @@ export const Category = (props) => {
             {/* {'Edit Category Modal'} */}
             <UpdateModal
                 show={updatedCategoriesModal}
-                handleClose={updateCategoryForm}
+                handleClose={()=>setUpdatedCategoriesModal(false)}
+                onSubmit={updateCategoryForm}
                 modalTitle={'Edit Categories'}
                 size='lg'
                 expandedArray={expandedArray}

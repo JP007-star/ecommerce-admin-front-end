@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPage } from '../../actions'
+import { pageConstants } from '../../actions/constants'
 import { Layout } from '../../components/Layout'
 import { Input } from '../../components/UI/Input'
 import { ModalUI } from '../../components/UI/ModalUI'
@@ -19,12 +20,25 @@ export const NewPage = () => {
   const [banners, setBanners] = useState('')
   const [products, setProducts] = useState('')
   const dispatch = useDispatch()
+  const page = useSelector(state => state.page)
 
 
 
   useEffect(() => {
     setCategories(linearCategories(category.categories))
   }, [category])
+
+  useEffect(() => {
+    console.log(page);
+    if (!page.loading) {
+      setCreateModal(false)
+      setTitle('')
+      setDesc('')
+      setCategoryId('')
+      setProducts('')
+      setBanners('')
+    }
+  }, [page])
 
   const handleBannerImages = (e) => {
     console.log(e);
@@ -69,7 +83,8 @@ export const NewPage = () => {
       <ModalUI
         show={createModal}
         modalTitle={"Create Page"}
-        handleClose={submitPageForm}
+        handleClose={()=>{setCreateModal(false)}}
+        onSubmit={submitPageForm}
       >
         <Container>
           <Row>
@@ -147,8 +162,14 @@ export const NewPage = () => {
   return (
     <>
       <Layout sidebar>
-        {renderCreatePageModal()}
-        <button onClick={() => setCreateModal(true)}>Create</button>
+        {
+          page.loading ? <p>Creating page please wait .....</p> :
+            <>
+              {renderCreatePageModal()}
+              <button onClick={() => setCreateModal(true)}>Create</button>
+            </>
+        }
+
       </Layout>
     </>
   )

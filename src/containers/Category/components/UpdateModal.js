@@ -12,7 +12,8 @@ const UpdateModal = (props) => {
         expandedArray,
         checkedArray,
         handleCategoryInput,
-        createCategoryList
+        createCategoryList,
+        onSubmit
      } = props
 
      console.log({expandedArray,checkedArray});
@@ -21,6 +22,7 @@ const UpdateModal = (props) => {
         <ModalUI
             show={show}
             handleClose={handleClose}
+            onSubmit={onSubmit}
             modalTitle={modalTitle}
             size={size}
         >
