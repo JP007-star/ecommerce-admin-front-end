@@ -1,14 +1,31 @@
-import { productsContants } from "../actions/constants";
+import { productConstants } from "../actions/constants"
+
 
 const initailData={
-    products:[]
+    error:null,
+    loading:false,
+    products:[],
 }
 export default (state=initailData,action)=>{
     switch(action.type){
-        case productsContants.GET_ALL_PRODUCTS_SUCCESS:
+        case productConstants.GET_ALL_PRODUCTS_REQUEST:
             state={
                 ...state,
-                products:action.payload.products
+                loading:true
+            }
+            break
+        case productConstants.GET_ALL_PRODUCTS_SUCCESS:
+            state={
+                ...state,
+                products:action.payload.products,
+                loading:false
+            }
+            break
+        case productConstants.GET_ALL_PRODUCTS_FAILURE:
+            state={
+                ...state,
+          loading:false,
+          error:action.payload.error
             }
             break
     }

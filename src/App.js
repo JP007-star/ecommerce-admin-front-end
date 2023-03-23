@@ -5,7 +5,7 @@ import { SignIn } from './containers/SignIn';
 import { SignUp } from './containers/SignUp';
 import { Home } from './containers/Home';
 import { NewPage } from './containers/NewPage';
-import { Products } from './containers/Products';
+import Products  from './containers/Products';
 import { Orders } from './containers/Orders';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import { isUserLoggedIn,getAllCategory,getInitialData} from './actions';
